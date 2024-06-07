@@ -82,23 +82,19 @@ public class GameLoop extends KeyAdapter {
     public void stop() {
         warningLabel.setText("Przegrałes rozpocznij od nowa");
         timer.stop();
-        Util.createAlert("Przegrales", "rkutek", Alert.AlertType.CONFIRMATION);
-        timer.start();
+        Util.createAlert("Przegrales", "Nie udało ci się wygrać", Alert.AlertType.CONFIRMATION);
     }
 
     private void update() throws URISyntaxException {
         banana.update(timer);
         snake.update(timer, banana);
-        scoreLabel.setText("Punkty : " + Snake.score);
+        scoreLabel.setText("Punkty : " + (Snake.score - 1));
     }
 
     private void render() throws URISyntaxException {
-
         board.render();
         banana.render();
         snake.render();
-
-
     }
 
 

@@ -1,23 +1,14 @@
 package com.olek.snake_projekt;
 
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -34,7 +25,7 @@ public class Snake {
     public Keys currentDirection;
 
     LinkedList<int[]> bodyList;
-    static int score = 0;
+    static int score = 1;
 
     String snakeHeadDirectionUrl;
     GameLoop gameLoop;
@@ -86,6 +77,7 @@ public class Snake {
     public void update(AnimationTimer timer, Banana banana){
         scene.setOnKeyPressed(this::moveSnake);
         accelerateSnake(currentDirection, timer);
+        detectIfTouched();
         detectIfTouchedBanana(banana);
     }
 
@@ -118,25 +110,21 @@ public class Snake {
             }
             if (row == 20){
                 row = 19;
-                wallCollisionDetection();
+                collisionDetection();
             } else if (row == -1) {
                 row = 0;
-                wallCollisionDetection();
+                collisionDetection();
             }else if (column == -1){
                 column = 0;
-                wallCollisionDetection();
+                collisionDetection();
             }else if (column == 20){
                 column =19;
-                wallCollisionDetection();
+                collisionDetection();
             }
             bodyList.addFirst(new int[]{row, column});
             if (bodyList.size() > score){
                 bodyList.removeLast();
             }
-
-
-
-
         }
     }
 
@@ -148,12 +136,20 @@ public class Snake {
         }
     }
 
-    private void wallCollisionDetection(){
+    private void detectIfTouched(){
+        for (int i = 0; i < bodyList.size(); i++) {
+            if (i != 0){
+                if (row == bodyList.get(i)[0] && column == bodyList.get(i)[1]){
+                    collisionDetection();
+                }
+            }
+        }
+    }
+
+    private void collisionDetection(){
         destorySnake();
         gameLoop.stop();
     }
-
-
 
     public void destorySnake(){
         gridPane.getChildren().remove(snakeHead);
