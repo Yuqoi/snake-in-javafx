@@ -1,6 +1,5 @@
 package com.olek.snake_projekt;
 
-import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,7 +37,7 @@ public class Snake {
         this.gameLoop = gameLoop;
 
         bodyList = new LinkedList<>();
-        snakeHeadDirectionUrl = "assets/snake_head_right.png";
+        snakeHeadDirectionUrl = "assets/snake_parts/snake_head_right.png";
         setSnakeImage(snakeHeadDirectionUrl);
 
         this.gridPane.add(snakeHead,  column, row);
@@ -49,16 +48,16 @@ public class Snake {
     public void moveSnake(javafx.scene.input.KeyEvent event) {
         if (event.getCode() == KeyCode.W){
             currentDirection = Keys.UP;
-            snakeHeadDirectionUrl = "assets/snake_head_up.png";
+            snakeHeadDirectionUrl = "assets/snake_parts/snake_head_up.png";
         }else if (event.getCode() == KeyCode.S){
             currentDirection = Keys.DOWN;
-            snakeHeadDirectionUrl = "assets/snake_head_down.png";
+            snakeHeadDirectionUrl = "assets/snake_parts/snake_head_down.png";
         } else if (event.getCode() == KeyCode.A) {
             currentDirection = Keys.LEFT;
-            snakeHeadDirectionUrl =  "assets/snake_head_left.png";
+            snakeHeadDirectionUrl =  "assets/snake_parts/snake_head_left.png";
         } else if (event.getCode() == KeyCode.D) {
             currentDirection = Keys.RIGHT;
-            snakeHeadDirectionUrl = "assets/snake_head_right.png";
+            snakeHeadDirectionUrl = "assets/snake_parts/snake_head_right.png";
         }
     }
 
@@ -74,9 +73,9 @@ public class Snake {
     }
 
 
-    public void update(AnimationTimer timer, Banana banana){
+    public void update(Banana banana){
         scene.setOnKeyPressed(this::moveSnake);
-        accelerateSnake(currentDirection, timer);
+        accelerateSnake(currentDirection);
         detectIfTouched();
         detectIfTouchedBanana(banana);
     }
@@ -86,7 +85,7 @@ public class Snake {
 
         for (int i = 1; i < bodyList.size(); i++){
             int[] part = bodyList.get(i);
-            ImageView bodyPart = new ImageView(new Image(String.valueOf(getClass().getResource("assets/snake_body.png"))));
+            ImageView bodyPart = new ImageView(new Image(String.valueOf(getClass().getResource("assets/snake_parts/snake_body.png"))));
             gridPane.add(bodyPart, part[1], part[0]);
         }
         setSnakeImage(snakeHeadDirectionUrl);
@@ -97,7 +96,7 @@ public class Snake {
         bodyList.add(new int[]{row,column});
     }
 
-    public void accelerateSnake(Keys key, AnimationTimer timer){
+    public void accelerateSnake(Keys key){
         if (key != null){
             if (key == Keys.UP){
                 row--;
@@ -153,8 +152,8 @@ public class Snake {
 
     public void destorySnake(){
         gridPane.getChildren().remove(snakeHead);
-        for (int[] part : bodyList) {
-            ImageView bodyPart = new ImageView(new Image(String.valueOf(getClass().getResource("assets/snake_body.png"))));
+        for (int[] _ : bodyList) {
+            ImageView bodyPart = new ImageView(new Image(String.valueOf(getClass().getResource("assets/snake_parts/snake_body.png"))));
             gridPane.getChildren().remove(bodyPart);
         }
     }

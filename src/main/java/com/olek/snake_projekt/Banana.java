@@ -1,6 +1,5 @@
 package com.olek.snake_projekt;
 
-import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -34,14 +33,14 @@ public class Banana {
     private void setBananaImage() throws URISyntaxException {
         ImageView banana = new ImageView();
 
-        URI uri = new URI(Objects.requireNonNull(getClass().getResource("assets/food.png")).toString());
+        URI uri = new URI(Objects.requireNonNull(getClass().getResource("assets/food/banana.png")).toString());
         Image image = new Image(String.valueOf(uri));
 
         banana.setImage(image);
         bananaImage = banana;
     }
 
-    public void update(AnimationTimer timer) throws URISyntaxException {
+    public void update() throws URISyntaxException {
         checkIfEaten();
     }
 
@@ -51,7 +50,7 @@ public class Banana {
         gridPane.add(bananaImage, column, row);
     }
 
-    private void checkIfEaten() throws URISyntaxException {
+    private void checkIfEaten() {
         if (isEaten){
             row = (int) (Math.random() * 20);
             column = (int) (Math.random() * 20);

@@ -4,15 +4,11 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -21,30 +17,23 @@ public class GameLoop extends KeyAdapter {
     private static final double FRAME_RATE = 5.0;
     private long lastUpdateTime;
 
-    private GridPane gridPane;
     private AnimationTimer timer;
 
 
     private List<int[]> snakeList;
     private Snake snake;
 
-    private int[] bananaLocations;
     private Banana banana;
 
 
     private Board board;
-    private Scene scene;
-
-
 
 
     Label scoreLabel;
     Label warningLabel;
 
     public GameLoop(GridPane gridPane, Scene scene, Label scoreLabel, Label warningLabel) throws URISyntaxException {
-        this.gridPane = gridPane;
         this.board = new Board(gridPane);
-        this.scene = scene;
         this.scoreLabel = scoreLabel;
         this.warningLabel = warningLabel;
 
@@ -86,8 +75,8 @@ public class GameLoop extends KeyAdapter {
     }
 
     private void update() throws URISyntaxException {
-        banana.update(timer);
-        snake.update(timer, banana);
+        banana.update();
+        snake.update(banana);
         scoreLabel.setText("Punkty : " + (Snake.score - 1));
     }
 

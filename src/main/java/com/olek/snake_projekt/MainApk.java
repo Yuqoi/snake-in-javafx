@@ -15,9 +15,6 @@ public class MainApk extends Application {
     private static double xOffset;
     private static double yOffset;
 
-    private static double xPopupset;
-    private static double yPopupset;
-
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -29,7 +26,6 @@ public class MainApk extends Application {
 
         stage.setResizable(false);
         stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("Snake");
         stage.setScene(scene);
 
         scene.setOnMousePressed(new EventHandler<MouseEvent>() {

@@ -1,13 +1,9 @@
 package com.olek.snake_projekt;
 
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-import java.lang.reflect.Array;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Timer;
 
 public class Board{
     GridPane gridPane;
@@ -21,10 +17,6 @@ public class Board{
         listOfItems = new ArrayList<>();
     }
 
-
-
-    public void update(){
-    }
 
     public void render(){
         clearGridLayout();
